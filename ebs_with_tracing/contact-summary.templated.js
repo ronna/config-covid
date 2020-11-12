@@ -59,7 +59,7 @@ const cards = [
             if (report) {
         fields.push(
             { label: 'contact.profile.symptoms.fever', value: 'contact.profile.symptoms.fever.' + getField(report, 'fields.patient_symptoms.fever'), translate: true, width: 6 },
-		    { label: 'contact.profile.symptoms.temperature', value: 'contact.profile.symptoms.temperature.' + getField(report, 'fields.patient_symptoms.temperature'), translate: true, width: 6 },
+			{ label: 'contact.profile.symptoms.temperature', value: 'contact.profile.symptoms.temperature.' + getField(report, 'fields.patient_symptoms.temperature'), translate: true, width: 6 },
 			{ label: 'contact.profile.symptoms.cough', value: 'contact.profile.symptoms.cough.' + getField(report, 'fields.patient_symptoms.cough'), translate: true, width: 6 },
 			{ label: 'contact.profile.symptoms.difficulty_breathing', value: 'contact.profile.symptoms.difficulty_breathing.' + getField(report, 'fields.patient_symptoms.difficulty_breathing'), translate: true, width: 6 },
 			{ label: 'contact.profile.symptoms.chest_pain', value: 'contact.profile.symptoms.chest_pain.' + getField(report, 'fields.patient_symptoms.difficulty_breathing'), translate: true, width: 6 },
