@@ -22,7 +22,8 @@ const hasReport = function (form) {
 
 const context = {
   //isPassenger: isTraveler(),
-  hasFormA0Form: hasReport('form_a0'),
+  hasCovidSymptoms: hasReport('form_a0'),
+  hasComorbidities: hasReport('form_a0'),
   hasDeclarationForm: hasReport('declaration'),
   hasLocatorForm: hasReport('locator'),
   hasQuarantineForm: hasReport('quarantine'),
@@ -48,7 +49,7 @@ const fields = [
 
 const cards = [
   {
-    label: 'contact.profile.symptoms',
+    label: 'contact.profile.covidsymptoms',
     appliesToType: 'person',
     appliesIf: function () {
       return isPositive() && !!getNewestReport(allReports, 'form_a0');
@@ -58,19 +59,19 @@ const cards = [
       const report = getNewestReport(allReports, 'form_a0');
             if (report) {
         fields.push(
-            { label: 'contact.profile.symptoms.fever', value: 'contact.profile.symptoms.fever.' + getField(report, 'fields.patient_symptoms.fever'), translate: true, width: 6 },
-			{ label: 'contact.profile.symptoms.temperature', value: 'contact.profile.symptoms.temperature.' + getField(report, 'fields.patient_symptoms.temperature'), translate: true, width: 6 },
-			{ label: 'contact.profile.symptoms.cough', value: 'contact.profile.symptoms.cough.' + getField(report, 'fields.patient_symptoms.cough'), translate: true, width: 6 },
-			{ label: 'contact.profile.symptoms.difficulty_breathing', value: 'contact.profile.symptoms.difficulty_breathing.' + getField(report, 'fields.patient_symptoms.difficulty_breathing'), translate: true, width: 6 },
-			{ label: 'contact.profile.symptoms.chest_pain', value: 'contact.profile.symptoms.chest_pain.' + getField(report, 'fields.patient_symptoms.difficulty_breathing'), translate: true, width: 6 },
-			{ label: 'contact.profile.symptoms.confusion', value: 'contact.profile.symptoms.confusion.' + getField(report, 'fields.patient_symptoms.confusion'), translate: true, width: 6 },
-			{ label: 'contact.profile.symptoms.body_aches', value: 'contact.profile.symptoms.body_aches.' + getField(report, 'fields.patient_symptoms.body_aches'), translate: true, width: 6 },
-			{ label: 'contact.profile.symptoms.sore_throat', value: 'contact.profile.symptoms.sore_throat.' + getField(report, 'fields.patient_symptoms.sore_throat'), translate: true, width: 6 },
-			{ label: 'contact.profile.symptoms.loss_tate', value: 'contact.profile.symptoms.loss_tate.' + getField(report, 'fields.patient_symptoms.loss_tate'), translate: true, width: 6 },
-			{ label: 'contact.profile.symptoms.diarrhea', value: 'contact.profile.symptoms.diarrhea.' + getField(report, 'fields.patient_symptoms.diarrhea'), translate: true, width: 6 },
-			{ label: 'contact.profile.symptoms.headache', value: 'contact.profile.symptoms.headache.' + getField(report, 'fields.patient_symptoms.headache'), translate: true, width: 6 },
-			{ label: 'contact.profile.symptoms.nausea', value: 'contact.profile.symptoms.nausea.' + getField(report, 'fields.patient_symptoms.nausea'), translate: true, width: 6 },
-			{ label: 'contact.profile.symptoms.conjunctivitis', value: 'contact.profile.symptoms.conjunctivitis.' + getField(report, 'fields.patient_symptoms.conjunctivitis'), translate: true, width: 6 }
+            { label: 'contact.profile.covidssymptoms.fever', value: getField(report, 'fields.patient_symptoms.fever'), translate: true, width: 6 },
+			{ label: 'contact.profile.covidssymptoms.temperature', value: getField(report, 'fields.patient_symptoms.temperature'), translate: true, width: 6 },
+			{ label: 'contact.profile.covidssymptoms.cough', value:  getField(report, 'fields.patient_symptoms.cough'), translate: true, width: 6 },
+			{ label: 'contact.profile.covidssymptoms.difficulty_breathing', value:  getField(report, 'fields.patient_symptoms.difficulty_breathing'), translate: true, width: 6 },
+			{ label: 'contact.profile.covidssymptoms.chest_pain', value:  getField(report, 'fields.patient_symptoms.difficulty_breathing'), translate: true, width: 6 },
+			{ label: 'contact.profile.covidssymptoms.confusion', value: getField(report, 'fields.patient_symptoms.confusion'), translate: true, width: 6 },
+			{ label: 'contact.profile.covidssymptoms.body_aches', value: getField(report, 'fields.patient_symptoms.body_aches'), translate: true, width: 6 },
+			{ label: 'contact.profile.covidssymptoms.sore_throat', value: getField(report, 'fields.patient_symptoms.sore_throat'), translate: true, width: 6 },
+			{ label: 'contact.profile.scovidsymptoms.loss_tate', value: getField(report, 'fields.patient_symptoms.loss_tate'), translate: true, width: 6 },
+			{ label: 'contact.profile.covidssymptoms.diarrhea', value: getField(report, 'fields.patient_symptoms.diarrhea'), translate: true, width: 6 },
+			{ label: 'contact.profile.covidssymptoms.headache', value:  getField(report, 'fields.patient_symptoms.headache'), translate: true, width: 6 },
+			{ label: 'contact.profile.covidssymptoms.nausea', value: getField(report, 'fields.patient_symptoms.nausea'), translate: true, width: 6 },
+			{ label: 'contact.profile.covidssymptoms.conjunctivitis', value:  getField(report, 'fields.patient_symptoms.conjunctivitis'), translate: true, width: 6 }
         );
       }
 
@@ -87,17 +88,17 @@ const cards = [
       const report = getNewestReport(allReports, 'form_a0');
       if (report) {
         fields.push(
-            { label: 'contact.profile.comorbidities.hiv', value: 'contact.profile.comorbidities.hiv.' + getField(report, 'fields.existing_conditions.hiv'), translate: true, width: 4 },
-			{ label: 'contact.profile.comorbidities.diabetes', value: 'contact.profile.comorbidities.diabetes.' + getField(report, 'fields.existing_conditions.diabetes'), translate: true, width: 4 },
-			{ label: 'contact.profile.comorbidities.tb', value: 'contact.profile.comorbidities.tb.' + getField(report, 'fields.existing_conditions.tb'), translate: true, width: 4 },
-			{ label: 'contact.profile.comorbidities.ckd', value: 'contact.profile.comorbidities.ckd.' + getField(report, 'fields.existing_conditions.ckd'), translate: true, width: 4 },
-			{ label: 'contact.profile.comorbidities.clc', value: 'contact.profile.comorbidities.clc.' + getField(report, 'fields.existing_conditions.clc'), translate: true, width: 4 },
-			{ label: 'contact.profile.comorbidities.liver_disease', value: 'contact.profile.comorbidities.liver_disease' + getField(report, 'fields.existing_conditions.liver_disease'), translate: true, width: 4 },
-			{ label: 'contact.profile.comorbidities.pregnant', value: 'contact.profile.comorbidities.pregnant' + getField(report, 'fields.existing_conditions.pregnant'), translate: true, width: 4 },
-			{ label: 'contact.profile.comorbidities.obesity', value: 'contact.profile.comorbidities.obesity' + getField(report, 'fields.existing_conditions.obesity'), translate: true, width: 4 },
-			{ label: 'contact.profile.comorbidities.bp', value: 'contact.profile.comorbidities.bp' + getField(report, 'fields.existing_conditions.bp'), translate: true, width: 4 },
-			{ label: 'contact.profile.comorbidities.tumor', value: 'contact.profile.comorbidities.tumor' + getField(report, 'fields.existing_conditions.tumor'), translate: true, width: 4 },
-			{ label: 'contact.profile.comorbidities.metabolic', value: 'contact.profile.comorbidities.metabolic' + getField(report, 'fields.existing_conditions.metabolic'), translate: true, width: 4 }
+            { label: 'contact.profile.comorbidities.hiv', value:  getField(report, 'fields.existing_conditions.hiv'), width: 4 },
+			{ label: 'contact.profile.comorbidities.diabetes', value:  getField(report, 'fields.existing_conditions.diabetes'), width: 4 },
+			{ label: 'contact.profile.comorbidities.tb', value: getField(report, 'fields.existing_conditions.tb'), width: 4 },
+			{ label: 'contact.profile.comorbidities.ckd', value:  getField(report, 'fields.existing_conditions.ckd'), width: 4 },
+			{ label: 'contact.profile.comorbidities.clc', value: getField(report, 'fields.existing_conditions.clc'), width: 4 },
+			{ label: 'contact.profile.comorbidities.liver_disease', value:  getField(report, 'fields.existing_conditions.liver_disease'), width: 4 },
+			{ label: 'contact.profile.comorbidities.pregnant', value:  getField(report, 'fields.existing_conditions.pregnant'), translate: true, width: 4 },
+			{ label: 'contact.profile.comorbidities.obesity', value: getField(report, 'fields.existing_conditions.obesity'), translate: true, width: 4 },
+			{ label: 'contact.profile.comorbidities.bp', value:  getField(report, 'fields.existing_conditions.bp'), translate: true, width: 4 },
+			{ label: 'contact.profile.comorbidities.tumor', value: getField(report, 'fields.existing_conditions.tumor'), translate: true, width: 4 },
+			{ label: 'contact.profile.comorbidities.metabolic', value: getField(report, 'fields.existing_conditions.metabolic'), translate: true, width: 4 }
         );
       }
       else {
