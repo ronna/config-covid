@@ -9,7 +9,7 @@ const getField = (report, fieldPath) => [...(fieldPath || '').split('.')]
       return prev[fieldName];
     }, report);
 
-const isTraveler = () => { return getField(thisContact, 'role') === 'traveler'; };
+const isPositive = () => { return getField(thisContact, 'role') === 'covid_patient'; };
 
 const isReportValid = function (report) {
   if (report.form && report.fields && report.reported_date) { return true; }
@@ -21,10 +21,12 @@ const hasReport = function (form) {
 };
 
 const context = {
-  isPassenger: isTraveler(),
+  //isPassenger: isTraveler(),
+  hasFormA0Form: hasReport('form_a0'),
   hasDeclarationForm: hasReport('declaration'),
   hasLocatorForm: hasReport('locator'),
   hasQuarantineForm: hasReport('quarantine'),
+  hasHbcFollowupForm: hasReport('hbc_followup'),
 };
 
 const fields = [
@@ -33,8 +35,8 @@ const fields = [
   { appliesToType: 'person', label: 'contact.sex', value: 'contact.sex.' + thisContact.sex, translate: true, width: 4 },
   { appliesToType: 'person', label: 'person.field.phone', value: thisContact.phone, width: 4 },
   { appliesToType: 'person', label: 'person.field.alternate_phone', value: thisContact.phone_alternate, width: 4 },
-  { appliesToType: 'person', appliesIf: isTraveler, label: 'contact.nationality', value: 'country.' + getField(thisContact, 'traveler.nationality'), translate: true, width: 4 },
-  { appliesToType: 'person', appliesIf: isTraveler, label: 'contact.passport', value: getField(thisContact, 'traveler.passport'), width: 4 },
+  { appliesToType: 'person', appliesIf: isPositive, label: 'days.since.symptoms.onset', value: thisContact.days_since_symptoms_onset, width: 4 },
+  //{ appliesToType: 'person', appliesIf: isTraveler, label: 'contact.passport', value: getField(thisContact, 'traveler.passport'), width: 4 },
   { appliesToType: 'person', label: 'contact.parent', value: thisLineage, filter: 'lineage' },
   { appliesToType: '!person', label: 'contact', value: thisContact.contact && thisContact.contact.name, width: 4 },
   { appliesToType: '!person', label: 'contact.phone', value: thisContact.contact && thisContact.contact.phone, width: 4 },
@@ -46,24 +48,29 @@ const fields = [
 
 const cards = [
   {
-    label: 'contact.profile.referral',
+    label: 'contact.profile.symptoms',
     appliesToType: 'person',
     appliesIf: function () {
-      return isTraveler() && !!getNewestReport(allReports, 'referral');
+      return isPositive() && !!getNewestReport(allReports, 'form_a0');
     },
     fields: function () {
       const fields = [];
-      const report = getNewestReport(allReports, 'referral');
-      const temp_infra_unit = getField(report, 'fields.temp_infra_unit');
-      const temp_clinical_unit = getField(report, 'fields.temp_clinical_unit');
-      const temp_infra_unit_text = temp_infra_unit === 'celsius' ? '°C' : temp_infra_unit === 'fahrenheit' ? '°F' : '';
-      const temp_clinical_unit_text = temp_clinical_unit === 'celsius' ? '°C' : temp_clinical_unit === 'fahrenheit' ? '°F' : '';
-      if (report) {
+      const report = getNewestReport(allReports, 'form_a0');
+            if (report) {
         fields.push(
-            { label: 'contact.profile.referral.temp_ir', value: getField(report, 'fields.temp_infra') + temp_infra_unit_text, width: 6 },
-            { label: 'contact.profile.referral.temp_clinical', value: getField(report, 'fields.temp_clinical') + temp_clinical_unit_text, width: 6 },
-            { label: 'contact.profile.referral.referred_to', value: 'contact.profile.referral.place.' + getField(report, 'fields.referred_to'), translate: true, width: 6 },
-            { label: '', icon: 'icon-risk', width: 6 }
+            { label: 'contact.profile.symptoms.fever', value: 'contact.profile.symptoms.fever.' + getField(report, 'fields.patient_symptoms.fever'), translate: true, width: 6 },
+		    { label: 'contact.profile.symptoms.temperature', value: 'contact.profile.symptoms.temperature.' + getField(report, 'fields.patient_symptoms.temperature'), translate: true, width: 6 },
+			{ label: 'contact.profile.symptoms.cough', value: 'contact.profile.symptoms.cough.' + getField(report, 'fields.patient_symptoms.cough'), translate: true, width: 6 },
+			{ label: 'contact.profile.symptoms.difficulty_breathing', value: 'contact.profile.symptoms.difficulty_breathing.' + getField(report, 'fields.patient_symptoms.difficulty_breathing'), translate: true, width: 6 },
+			{ label: 'contact.profile.symptoms.chest_pain', value: 'contact.profile.symptoms.chest_pain.' + getField(report, 'fields.patient_symptoms.difficulty_breathing'), translate: true, width: 6 },
+			{ label: 'contact.profile.symptoms.confusion', value: 'contact.profile.symptoms.confusion.' + getField(report, 'fields.patient_symptoms.confusion'), translate: true, width: 6 },
+			{ label: 'contact.profile.symptoms.body_aches', value: 'contact.profile.symptoms.body_aches.' + getField(report, 'fields.patient_symptoms.body_aches'), translate: true, width: 6 },
+			{ label: 'contact.profile.symptoms.sore_throat', value: 'contact.profile.symptoms.sore_throat.' + getField(report, 'fields.patient_symptoms.sore_throat'), translate: true, width: 6 },
+			{ label: 'contact.profile.symptoms.loss_tate', value: 'contact.profile.symptoms.loss_tate.' + getField(report, 'fields.patient_symptoms.loss_tate'), translate: true, width: 6 },
+			{ label: 'contact.profile.symptoms.diarrhea', value: 'contact.profile.symptoms.diarrhea.' + getField(report, 'fields.patient_symptoms.diarrhea'), translate: true, width: 6 },
+			{ label: 'contact.profile.symptoms.headache', value: 'contact.profile.symptoms.headache.' + getField(report, 'fields.patient_symptoms.headache'), translate: true, width: 6 },
+			{ label: 'contact.profile.symptoms.nausea', value: 'contact.profile.symptoms.nausea.' + getField(report, 'fields.patient_symptoms.nausea'), translate: true, width: 6 },
+			{ label: 'contact.profile.symptoms.conjunctivitis', value: 'contact.profile.symptoms.conjunctivitis.' + getField(report, 'fields.patient_symptoms.conjunctivitis'), translate: true, width: 6 }
         );
       }
 
@@ -72,12 +79,12 @@ const cards = [
   },
 
   {
-    label: 'contact.profile.quarantine.form',
+    label: 'contact.profile.comorbidities',
     appliesToType: 'person',
-    appliesIf: isTraveler,
+    appliesIf: isPositive,
     fields: function () {
       const fields = [];
-      const report = getNewestReport(allReports, 'quarantine');
+      const report = getNewestReport(allReports, 'form_a0');
       if (report) {
         fields.push(
             { label: 'contact.profile.quarantine.airline', value: getField(report, 'fields.flight_info.airline'), width: 4 },
@@ -94,7 +101,7 @@ const cards = [
         );
       }
       else {
-        fields.push({ label: 'contact.profile.quarantine.form.none' });
+        fields.push({ label: 'contact.profile.comorbidities.none' });
       }
 
       return fields;
@@ -104,7 +111,7 @@ const cards = [
   {
     label: 'contact.profile.declaration.form',
     appliesToType: 'person',
-    appliesIf: isTraveler,
+    appliesIf: isPositive,
     fields: function () {
       const fields = [];
       const report = getNewestReport(allReports, 'declaration');
@@ -144,22 +151,21 @@ const cards = [
   },
 
   {
-    label: 'contact.profile.locator.form',
+    label: 'contact.profile.isolation',
     appliesToType: 'person',
-    appliesIf: isTraveler,
+    appliesIf: isPositive,
     fields: function () {
       const fields = [];
-      const report = getNewestReport(allReports, 'locator');
+      const report = getNewestReport(allReports, 'form_a0');
       if (report) {
         fields.push(
-            { label: 'contact.profile.locator.airline', value: getField(report, 'fields.flight_info.airline'), width: 4 },
-            { label: 'contact.profile.locator.flight', value: getField(report, 'fields.flight_info.flight'), width: 4 },
-            { label: 'contact.profile.locator.arrival_date', value: getField(report, 'fields.flight_info.arrival_date_updated') || getField(report, 'fields.flight_info.arrival_date'), filter: 'simpleDate', width: 4 }
+            { label: 'contact.profile.isolation.date', value: getField(report, 'fields.isolation.isolation_date'), filter: 'simpleDate', width: 4 },
+            { label: 'contact.profile.isolation.area', value: getField(report, 'fields.isolation.isolation_area'), width: 4 },
 
         );
       }
       else {
-        fields.push({ label: 'contact.profile.locator.form.none' });
+        fields.push({ label: 'contact.profile.isolation.none' });
       }
 
       return fields;
