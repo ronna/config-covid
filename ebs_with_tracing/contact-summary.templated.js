@@ -160,7 +160,7 @@ const cards = [
       if (report) {
         fields.push(
             { label: 'contact.profile.isolation.date', value: getField(report, 'fields.isolation.isolation_date'), filter: 'simpleDate', width: 4 },
-            { label: 'contact.profile.isolation.area', value: getField(report, 'fields.isolation.isolation_area'), width: 4 },
+            { label: 'contact.profile.isolation.area', value: getField(report, 'fields.isolation.isolation_area'), width: 4 }
 
         );
       }
