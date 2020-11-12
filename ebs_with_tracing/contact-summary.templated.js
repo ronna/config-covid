@@ -24,7 +24,7 @@ const context = {
   //isPassenger: isTraveler(),
   hasCovidSymptoms: hasReport('form_a0'),
   hasComorbidities: hasReport('form_a0'),
-  hasDeclarationForm: hasReport('declaration'),
+  hasDeclarationForm: hasReport('form_a0'),
   hasLocatorForm: hasReport('locator'),
   hasQuarantineForm: hasReport('quarantine'),
   hasHbcFollowupForm: hasReport('hbc_followup'),
@@ -115,10 +115,10 @@ const cards = [
     appliesIf: isPositive,
     fields: function () {
       const fields = [];
-      const report = getNewestReport(allReports, 'declaration');
+      const report = getNewestReport(allReports, 'form_a0');
       if (report) {
-        const contactRiskFactors = getRiskFactors(getField(report, 'fields.contact_info'));
-        const healthRiskFactors = getRiskFactors(getField(report, 'fields.health'));
+        const contactRiskFactors = getRiskFactors(getField(report, 'fields.human_exposure'));
+        const healthRiskFactors = getRiskFactors(getField(report, 'fields.patient_symptoms'));
 
         if (contactRiskFactors && contactRiskFactors.length > 0) {
           fields.push({ label: 'risk.contact.found', width: 12, icon: 'icon-risk' });
