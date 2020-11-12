@@ -97,7 +97,7 @@ const cards = [
 			{ label: 'contact.profile.comorbidities.obesity', value: 'contact.profile.comorbidities.obesity' + getField(report, 'fields.existing_conditions.obesity'), translate: true, width: 4 },
 			{ label: 'contact.profile.comorbidities.bp', value: 'contact.profile.comorbidities.bp' + getField(report, 'fields.existing_conditions.bp'), translate: true, width: 4 },
 			{ label: 'contact.profile.comorbidities.tumor', value: 'contact.profile.comorbidities.tumor' + getField(report, 'fields.existing_conditions.tumor'), translate: true, width: 4 },
-			{ label: 'contact.profile.comorbidities.metabolic', value: 'contact.profile.comorbidities.metabolic' + getField(report, 'fields.existing_conditions.metabolic'), translate: true, width: 4 },
+			{ label: 'contact.profile.comorbidities.metabolic', value: 'contact.profile.comorbidities.metabolic' + getField(report, 'fields.existing_conditions.metabolic'), translate: true, width: 4 }
         );
       }
       else {
