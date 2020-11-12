@@ -87,17 +87,17 @@ const cards = [
       const report = getNewestReport(allReports, 'form_a0');
       if (report) {
         fields.push(
-            { label: 'contact.profile.quarantine.airline', value: getField(report, 'fields.flight_info.airline'), width: 4 },
-            { label: 'contact.profile.quarantine.flight', value: getField(report, 'fields.flight_info.flight'), width: 4 },
-            { label: 'contact.profile.quarantine.arrival_date', value: getField(report, 'fields.flight_info.arrival_date'), filter: 'simpleDate', width: 4 },
-            { label: 'contact.profile.quarantine.accomodation.stay', value: 'contact.profile.quarantine.accomodation.stay.' + getField(report, 'fields.accomodation.staying_at'), translate: true, width: 4 },
-            { label: 'contact.profile.quarantine.accomodation.province', value: getField(report, 'fields.accomodation.province'), width: 4 },
-            { label: 'contact.profile.quarantine.accomodation.district', value: getField(report, 'fields.accomodation.district'), width: 4 },
-            { label: 'contact.profile.quarantine.accomodation.municipality', value: getField(report, 'fields.accomodation.municipality'), width: 4 },
-            { label: 'contact.profile.quarantine.accomodation.ward', value: getField(report, 'fields.accomodation.ward'), width: 4 },
-            { label: 'contact.profile.quarantine.accomodation.house', value: getField(report, 'fields.accomodation.house'), width: 4 },
-            { label: 'contact.profile.quarantine.accomodation.landline', value: getField(report, 'fields.accomodation.landline'), width: 4 },
-            { label: 'contact.profile.quarantine.accomodation.mobile', value: getField(report, 'fields.accomodation.mobile'), width: 4 }
+            { label: 'contact.profile.comorbidities.hiv', value: 'contact.profile.comorbidities.hiv.' + getField(report, 'fields.existing_conditions.hiv'), translate: true, width: 4 },
+			{ label: 'contact.profile.comorbidities.diabetes', value: 'contact.profile.comorbidities.diabetes.' + getField(report, 'fields.existing_conditions.diabetes'), translate: true, width: 4 },
+			{ label: 'contact.profile.comorbidities.tb', value: 'contact.profile.comorbidities.tb.' + getField(report, 'fields.existing_conditions.tb'), translate: true, width: 4 },
+			{ label: 'contact.profile.comorbidities.ckd', value: 'contact.profile.comorbidities.ckd.' + getField(report, 'fields.existing_conditions.ckd'), translate: true, width: 4 },
+			{ label: 'contact.profile.comorbidities.clc', value: 'contact.profile.comorbidities.clc.' + getField(report, 'fields.existing_conditions.clc'), translate: true, width: 4 },
+			{ label: 'contact.profile.comorbidities.liver_disease', value: 'contact.profile.comorbidities.liver_disease' + getField(report, 'fields.existing_conditions.liver_disease'), translate: true, width: 4 },
+			{ label: 'contact.profile.comorbidities.pregnant', value: 'contact.profile.comorbidities.pregnant' + getField(report, 'fields.existing_conditions.pregnant'), translate: true, width: 4 },
+			{ label: 'contact.profile.comorbidities.obesity', value: 'contact.profile.comorbidities.obesity' + getField(report, 'fields.existing_conditions.obesity'), translate: true, width: 4 },
+			{ label: 'contact.profile.comorbidities.bp', value: 'contact.profile.comorbidities.bp' + getField(report, 'fields.existing_conditions.bp'), translate: true, width: 4 },
+			{ label: 'contact.profile.comorbidities.tumor', value: 'contact.profile.comorbidities.tumor' + getField(report, 'fields.existing_conditions.tumor'), translate: true, width: 4 },
+			{ label: 'contact.profile.comorbidities.metabolic', value: 'contact.profile.comorbidities.metabolic' + getField(report, 'fields.existing_conditions.metabolic'), translate: true, width: 4 },
         );
       }
       else {
