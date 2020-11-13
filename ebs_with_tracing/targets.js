@@ -1,11 +1,12 @@
+const extras = require('./nools-extras');
+const {
+  isAlive,
+  getSubsequentFollowUps,
+  isActiveCovid,
+  getField
+} = extras;
 
-const getField = (report, fieldPath) => [...(fieldPath || '').split('.')]
-    .reduce((prev, fieldName) => {
-        if (prev === undefined) { return undefined; }
-        return prev[fieldName];
-    }, report);
-
-const isTraveler = (contact) => { return getField(contact.contact, 'role') === 'traveler'; };
+const isPositive = (contact) => { return getField(contact.contact, 'role') === 'covid_patient'; };
 
 const isToday = (someDate) => {
     const today = new Date();
@@ -14,54 +15,67 @@ const isToday = (someDate) => {
         someDate.getFullYear() === today.getFullYear();
 };
 
-const isDeclarationForm = (report) => { return report.form === 'declaration'; };
-const isLocatorForm = (report) => { return report.form === 'locator'; };
-const isQuarantineForm = (report) => { return report.form === 'quarantine'; };
-const isReferralForm = (report) => { return report.form === 'referral'; };
+const isRegistrationForm = (report) => { return report.form === 'form_a0'; };
+const isHbcFollowupForm = (report) => { return report.form === 'hbc_followup'; };
 
 module.exports = [
 
     {
-        id: 'travellers-registered-this-month',
+        id: 'deaths-this-month',
         type: 'count',
-        icon: 'icon-person',
+        icon: 'icon-death-general',
         goal: 0,
-        translation_key: 'targets.travellers.count',
+        translation_key: 'targets.death_reporting.deaths.title',
         subtitle_translation_key: 'targets.this_month.subtitle',
-        context:'user.role === "inputter"',
         appliesTo: 'contacts',
         appliesToType: ['person'],
-        appliesIf: isTraveler,
-        date: 'reported'
+        appliesIf: function (contact) {
+          return !isAlive(contact);
     },
+    date: (contact) => contact.contact.date_of_death
+  },
 
     {
-        id: 'travellers-registered-today',
+        id: 'patients-registered-this-month',
         type: 'count',
         icon: 'icon-person',
         goal: 0,
-        translation_key: 'targets.travellers.count',
-        subtitle_translation_key: 'targets.today.subtitle',
-        context:'user.role === "inputter"',
+        translation_key: 'targets.patients.count',
+        subtitle_translation_key: 'targets.this_month.subtitle',
+        context:'user.role === "chw"',
         appliesTo: 'contacts',
         appliesToType: ['person'],
-        appliesIf: function (contact) { return isTraveler(contact) && isToday(new Date(contact.contact.reported_date)); },
+        appliesIf: isPositive,
         date: 'reported'
     },
 
     {
-        id: 'reports-with-risk-this-month',
+        id: 'patients-registered-today',
+        type: 'count',
+        icon: 'icon-person',
+        goal: 0,
+        translation_key: 'targets.patients.count',
+        subtitle_translation_key: 'targets.today.subtitle',
+        context:'user.role === "chw"',
+        appliesTo: 'contacts',
+        appliesToType: ['person'],
+        appliesIf: function (contact) { return isPositive(contact) && isToday(new Date(contact.contact.reported_date)); },
+        date: 'reported'
+    },
+
+    {
+        id: 'patients-isolated-this-month',
         type: 'count',
         icon: 'icon-risk',
         goal: 0,
-        translation_key: 'targets.risk.count',
+        translation_key: 'targets.isolation.count',
         subtitle_translation_key: 'targets.this_month.subtitle',
-        context:'user.role === "inputter"',
+        context:'user.role === "chw_supervisor"',
         appliesTo: 'reports',
-        appliesToType: ['declaration'],
+        appliesToType: ['form_a0'],
         idType: 'contact',
         appliesIf: function (contact, report) {
-            return getField(report, 'fields.r_high_risk') === 'true';
+            return getField(report, 'fields.case_isolation') === 'true';
         },
         date: 'reported'
     },
@@ -143,28 +157,28 @@ module.exports = [
         goal: 0,
         translation_key: 'targets.referral.count',
         subtitle_translation_key: 'targets.today.subtitle',
-        context:'user.role === "inputter"',
+        context:'user.role === "chw_supervisor"',
         appliesTo: 'contacts',
         appliesToType: ['person'],
         appliesIf: function (contact) {
-            return isTraveler(contact) &&
+            return isPositive(contact) &&
                 contact.reports.some((report) => { return isToday(new Date(report.reported_date)) && isReferralForm(report); });
         },
         date: 'reported'
     },
 
     {
-        id: 'travellers-with-referral-this-month',
+        id: 'patients-with-home-based-care-this-month',
         type: 'count',
         icon: 'icon-hospital',
         goal: 0,
-        translation_key: 'targets.referral.count',
+        translation_key: 'targets.home.based.care.count',
         subtitle_translation_key: 'targets.this_month.subtitle',
         context:'user.role === "inputter"',
         appliesTo: 'contacts',
         appliesToType: ['person'],
         appliesIf: function (contact) {
-            return isTraveler(contact) && contact.reports.some((report) => { return isReferralForm(report); });
+            return isTraveler(contact) && contact.reports.some((report) => { return isHbcFollowupForm(report); });
         },
         date: 'reported'
     }
