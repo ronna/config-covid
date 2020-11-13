@@ -1,3 +1,8 @@
+const {
+  dateFrom,
+  isAlive,
+} = require('./contact-summary-extras');
+const extras = require('./nools-extras');
 const thisContact = contact;
 const thisLineage = lineage;
 const allReports = reports;
