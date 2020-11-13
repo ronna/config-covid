@@ -3,7 +3,7 @@ const extras = require('./contact-summary-extras');
 const { today, MAX_DAYS_IN_ISOLATION, isHighRiskPatient, getNewestReport, getSubsequentFollowUps,
   isAlive, isReadyForDischarge, isActiveCovid, countCovidFollowups,
   getAllRiskFactors, getNextCovidFollowupDate, getMostRecentEDD, getDischargeDate, getFormArraySubmittedInWindow,
-  getAllRiskFactorExtra, getSymptonsOnSetDate, getField } = extras;
+  getAllRiskFactorExtra, getSymptonsOnSetDate, getDangerSignCodes, getField } = extras;
 
 //contact, reports, lineage are globally available for contact-summary
 const thisContact = contact;
