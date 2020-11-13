@@ -37,8 +37,8 @@ module.exports = [
       label: 'task.covid_followup.title',
     }],
   },
-  
-  
+
+
     /****
    Use case :  HBC Followup
    1. Followup after isolation
@@ -60,8 +60,8 @@ module.exports = [
       const startTime = Utils.addDate(event.dueDate(c, r), -event.start);
       const endTime = Utils.addDate(event.dueDate(c, r), event.end + 1);
 
-      const reportsAfterHbc = c.reports.filter(report => report.reported_date >= this.mostRecentHbc.reported_date);
-      return Utils.isFormSubmittedInWindow(reportsAfterRdt, 'hbc_followup', startTime, endTime);
+      //const reportsAfterHbc = c.reports.filter(report => report.reported_date >= this.mostRecentHbc.reported_date);
+      return Utils.isFormSubmittedInWindow(reportsAfterHbc, 'hbc_followup', startTime, endTime);
     },
     events: [{
       start: 1,
