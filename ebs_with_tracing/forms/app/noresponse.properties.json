@@ -1,15 +1,20 @@
-"icon": "icon-mother-child",
-  "title": [
-  {
-    "locale": "en",
-    "content": "No response from patient"
-  },
-],
-"context": {
-    "person": true,
-    "place": false
-},
-"hidden_fields": [
-    "patient_details"
-]
+{
+    "icon": "icon-mother-child",
+      "title": [
+      {
+        "locale": "en",
+        "content": "No response from patient"
+      },
+      {
+        "locale": "fr",
+        "content": "Pas de réponse du patient"
+      }
+    ],
+    "context": {
+        "person": true,
+        "place": false
+    },
+    "hidden_fields": [
+        "patient_details"
+    ]
 }
