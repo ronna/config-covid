@@ -42,10 +42,6 @@ function getNewestReport(allReports, forms) {
   return result;
 }
 
-function getDischargeDate(report) {
-  return isOutcomeForm(report) && getField(report, 'outcome_details.date_of_outcome_submission') && moment(getField(report, 'outcome_details.date_of_outcome_submission'));
-}
-
 function getNextCovidFollowupDate(allReports, report) {
   let nextVisit = getField(report, 'next_visit');
   let eddReportDate = report.reported_date;
