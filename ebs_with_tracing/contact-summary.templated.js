@@ -1,6 +1,6 @@
 const moment = require('moment');
 const extras = require('./contact-summary-extras');
-const { today, isHighRiskPatient, getNewestReport, isAlive, isReadyForDischarge, isActiveCovid, countCovidFollowups,
+const { today, isHighRiskPatient, getNewestReport, isAlive, isActiveCovid, countCovidFollowups,
   getAllRiskFactors, getNextCovidFollowupDate, getMostRecentEDD, getAllRiskFactorExtra, getSymptonsOnSetDate, dangerSigns, getField } = extras;
 
 //contact, reports, lineage are globally available for contact-summary
@@ -83,12 +83,12 @@ const cards = [
       if (dangerSigns.length > 0) {
         fields.push({ label: 'contact.profile.danger_signs.current', value: dangerSigns.length > 1 ? 'contact.profile.danger_sign.multiple' : 'contact.profile.danger_sign.' + dangerSigns[0], translate: true, width: 6 });
       }
-
+/***
       fields.push(
         { label: 'contact.profile.visit', value: 'contact.profile.visits.of', context: { count: countCovidFollowups(allReports, report), total: 8 }, translate: true, width: 6 },
         { label: 'contact.profile.last_visited', value: mostRecentTestDate.valueOf(), filter: 'relativeDay', width: 6 }
       );
-
+***/
       if (nextHbcVisitDate && nextHbcVisitDate.isSameOrAfter(today)) {
         fields.push(
           { label: 'contact.profile.anc.next', value: nextHbcVisitDate.valueOf(), filter: 'simpleDate', width: 6 }
@@ -303,7 +303,6 @@ const cards = [
 ];
 
 module.exports = {
-  context: context,
   cards: cards,
   fields: fields
 };
