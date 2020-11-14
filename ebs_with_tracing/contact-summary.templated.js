@@ -1,4 +1,4 @@
-const moment = require('moment');
+//const moment = require('moment');
 const extras = require('./contact-summary-extras');
 const { today, isHighRiskPatient, getNewestReport, isAlive, isActiveCovid, getAllRiskFactors, getNextCovidFollowupDate, getMostRecentEDD, getAllRiskFactorExtra, getSymptonsOnSetDate, dangerSigns, getField } = extras;
 
@@ -37,7 +37,7 @@ const cards = [
 
       const highRisk = isHighRiskPatient(allReports, report);
 
-      const mostRecentTestResult = getNewestReport(allReports, ['form_a0', 'hbc_followup']);
+      //const mostRecentTestResult = getNewestReport(allReports, ['form_a0', 'hbc_followup']);
       //const mostRecentTestDate = moment(mostRecentTestResult.reported_date);
       const symptomsOnsetDate = getSymptonsOnSetDate (allReports, ['form_a0']);
       const edd_ms = getMostRecentEDD(allReports, report);
