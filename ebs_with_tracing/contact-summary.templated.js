@@ -29,10 +29,6 @@ const fields = [
   { appliesToType: '!person', label: 'contact.notes', value: thisContact.notes, width: 12 }
 ];
 
-if (thisContact.short_name) {
-  fields.unshift({ appliesToType: 'person', label: 'contact.short_name', value: thisContact.short_name, width: 4 });
-}
-
 const cards = [
   {
     label: 'contact.profile.covid.active',
