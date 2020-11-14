@@ -7,10 +7,7 @@ const { today, isHighRiskPatient, getNewestReport, isAlive, isReadyForDischarge,
 const thisContact = contact;
 const thisLineage = lineage;
 const allReports = reports;
-const context = {
-  show_hbc_form: isActiveCovid(thisContact, allReports),
-  show_outcome_form: isReadyForDischarge(thisContact, allReports),
-};
+
 const fields = [
   { appliesToType: 'person', label: 'patient_id', value: thisContact.patient_id, width: 4 },
   { appliesToType: 'person', label: 'contact.age', value: thisContact.date_of_birth, width: 4, filter: 'age' },
