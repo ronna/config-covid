@@ -8,7 +8,7 @@ const isReportValid = function (report) {
 
 const hbcForms = ['form_a0', 'hbc_followup', 'general_followup'];
 
-const outcomeForms = ['outcome'];
+//const outcomeForms = ['outcome'];
 
 // const dangerSignForms = ['form_a0', 'hbc_followup', 'general_followup'];
 
@@ -45,7 +45,7 @@ function getNewestReport(allReports, forms) {
 function getNextCovidFollowupDate(allReports, report) {
   let nextVisit = getField(report, 'next_visit');
   let eddReportDate = report.reported_date;
-  //const followUps = getSubsequentFollowUps(allReports, report);
+  const followUps = getNextCovidFollowupDate(allReports, report);
   followUps.forEach(function (followUpReport) {
     if (followUpReport.reported_date > eddReportDate && !!getField(followUpReport, 'next_visit')) {
       eddReportDate = followUpReport.reported_date;
