@@ -45,7 +45,7 @@ function getNewestReport(allReports, forms) {
 function getNextCovidFollowupDate(allReports, report) {
   let nextVisit = getField(report, 'next_visit');
   let eddReportDate = report.reported_date;
-  const followUps = getSubsequentFollowUps(allReports, report);
+  //const followUps = getSubsequentFollowUps(allReports, report);
   followUps.forEach(function (followUpReport) {
     if (followUpReport.reported_date > eddReportDate && !!getField(followUpReport, 'next_visit')) {
       eddReportDate = followUpReport.reported_date;
@@ -182,10 +182,6 @@ function isHomeBasedCareForm(report) {
   return report && hbcForms.includes(report.form);
 }
 
-function isOutcomeForm(report) {
-  return report && outcomeForms.includes(report.form);
-}
-
 
 function isActiveCovid(thisContact, allReports, report) {
   if (thisContact.type !== 'person' || !isAlive(thisContact) || !isHomeBasedCareForm(report)) { return false; }
@@ -304,7 +300,5 @@ module.exports = {
   isAlive,
   isActiveCovid,
   getNextCovidFollowupDate,
-  getDischargeDate,
-  dangerSigns,
   getField
 };
