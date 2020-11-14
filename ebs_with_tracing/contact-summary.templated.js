@@ -55,7 +55,7 @@ const cards = [
       const nextHbcVisitDate = getNextCovidFollowupDate(allReports, report);
       const daysSinceSymptoms = symptomsOnsetDate ? today.diff(symptomsOnsetDate, 'days') : null;
       let reportDate = report.reported_date;
-      getSubsequentFollowUps(allReports, report).forEach(function (followUpReport));
+      // getSubsequentFollowUps(allReports, report).forEach(function (followUpReport));
 
       /****
       const migratedReport = getRecentANCVisitWithEvent(allReports, report, 'migrated');
