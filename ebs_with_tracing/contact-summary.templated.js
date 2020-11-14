@@ -8,8 +8,6 @@ const thisContact = contact;
 const thisLineage = lineage;
 const allReports = reports;
 const context = {
-  alive: isAlive(thisContact),
-  muted: false,
   show_hbc_form: isActiveCovid(thisContact, allReports),
   show_outcome_form: isReadyForDischarge(thisContact, allReports),
 };
