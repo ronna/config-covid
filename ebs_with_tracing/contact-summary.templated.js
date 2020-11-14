@@ -1,7 +1,6 @@
 const moment = require('moment');
 const extras = require('./contact-summary-extras');
-const { today, isHighRiskPatient, getNewestReport, isAlive, isActiveCovid, countCovidFollowups,
-  getAllRiskFactors, getNextCovidFollowupDate, getMostRecentEDD, getAllRiskFactorExtra, getSymptonsOnSetDate, dangerSigns, getField } = extras;
+const { today, isHighRiskPatient, getNewestReport, isAlive, isActiveCovid, getAllRiskFactors, getNextCovidFollowupDate, getMostRecentEDD, getAllRiskFactorExtra, getSymptonsOnSetDate, dangerSigns, getField } = extras;
 
 //contact, reports, lineage are globally available for contact-summary
 const thisContact = contact;
@@ -39,7 +38,7 @@ const cards = [
       const highRisk = isHighRiskPatient(allReports, report);
 
       const mostRecentTestResult = getNewestReport(allReports, ['form_a0', 'hbc_followup']);
-      const mostRecentTestDate = moment(mostRecentTestResult.reported_date);
+      //const mostRecentTestDate = moment(mostRecentTestResult.reported_date);
       const symptomsOnsetDate = getSymptonsOnSetDate (allReports, ['form_a0']);
       const edd_ms = getMostRecentEDD(allReports, report);
       const nextHbcVisitDate = getNextCovidFollowupDate(allReports, report);
@@ -85,7 +84,7 @@ const cards = [
       }
 /***
       fields.push(
-        { label: 'contact.profile.visit', value: 'contact.profile.visits.of', context: { count: countCovidFollowups(allReports, report), total: 8 }, translate: true, width: 6 },
+        { label: 'contact.profile.visit', value: 'contact.profile.visits.of',: { count: countCovidFollowups(allReports, report), total: 8 }, translate: true, width: 6 },
         { label: 'contact.profile.last_visited', value: mostRecentTestDate.valueOf(), filter: 'relativeDay', width: 6 }
       );
 ***/
