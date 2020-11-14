@@ -91,7 +91,7 @@ module.exports = [
         context:'user.role === "inputter"',
         appliesTo: 'contacts',
         appliesToType: ['person'],
-        appliesIf: isTraveler,
+        appliesIf: isPositive,
         passesIf: function (contact) {
             return contact.reports.some((report) => { return isDeclarationForm(report); });
         },
@@ -126,7 +126,7 @@ module.exports = [
         context:'user.role === "inputter"',
         appliesTo: 'contacts',
         appliesToType: ['person'],
-        appliesIf: isTraveler,
+        appliesIf: isPositive,
         passesIf: function (contact) {
             return contact.reports.some((report) => { return isQuarantineForm(report); });
         },
@@ -143,7 +143,7 @@ module.exports = [
         context:'user.role === "inputter"',
         appliesTo: 'contacts',
         appliesToType: ['person'],
-        appliesIf: isTraveler,
+        appliesIf: isPositive,
         passesIf: function (contact) {
             return contact.reports.some((report) => { return isLocatorForm(report); });
         },
@@ -178,7 +178,7 @@ module.exports = [
         appliesTo: 'contacts',
         appliesToType: ['person'],
         appliesIf: function (contact) {
-            return isTraveler(contact) && contact.reports.some((report) => { return isHbcFollowupForm(report); });
+            return isPositive(contact) && contact.reports.some((report) => { return isHbcFollowupForm(report); });
         },
         date: 'reported'
     }
