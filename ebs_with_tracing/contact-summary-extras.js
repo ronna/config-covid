@@ -304,10 +304,8 @@ function knowsHIVStatusInPast3Months(allReports) {
 
 module.exports = {
   today,
-  MAX_DAYS_IN_ISOLATION,
   isHighRiskPatient,
   getNewestReport,
-  getSubsequentFollowUps,
   isAlive,
   isActiveCovid,
   countCovidFollowups,
@@ -318,6 +316,6 @@ module.exports = {
   getMostRecentEDD,
   getDischargeDate,
   getSymptonsOnSetDate,
-  getFormArraySubmittedInWindow,
+  dangerSigns,
   getField
 };
