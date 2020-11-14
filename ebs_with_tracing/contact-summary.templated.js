@@ -1,7 +1,7 @@
 const moment = require('moment');
 const extras = require('./contact-summary-extras');
 const { today, isHighRiskPatient, getNewestReport, isAlive, isReadyForDischarge, isActiveCovid, countCovidFollowups,
-  getAllRiskFactors, getNextCovidFollowupDate, getMostRecentEDD, getDischargeDate, getAllRiskFactorExtra, getSymptonsOnSetDate, dangerSigns, getField } = extras;
+  getAllRiskFactors, getNextCovidFollowupDate, getMostRecentEDD, getAllRiskFactorExtra, getSymptonsOnSetDate, dangerSigns, getField } = extras;
 
 //contact, reports, lineage are globally available for contact-summary
 const thisContact = contact;
@@ -52,7 +52,7 @@ const cards = [
       const edd_ms = getMostRecentEDD(allReports, report);
       const nextHbcVisitDate = getNextCovidFollowupDate(allReports, report);
       const daysSinceSymptoms = symptomsOnsetDate ? today.diff(symptomsOnsetDate, 'days') : null;
-      let reportDate = report.reported_date;
+      //let reportDate = report.reported_date;
       // getSubsequentFollowUps(allReports, report).forEach(function (followUpReport));
 
       /****
