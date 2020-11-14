@@ -10,11 +10,11 @@ const hbcForms = ['form_a0', 'hbc_followup', 'general_followup'];
 
 const outcomeForms = ['outcome'];
 
-const dangerSignForms = ['form_a0', 'hbc_followup', 'general_followup'];
+// const dangerSignForms = ['form_a0', 'hbc_followup', 'general_followup'];
 
 
-const MAX_DAYS_IN_ISOLATION = 21 + 4;
-const AVG_DAYS_IN_ISOLATION = 40;
+// const MAX_DAYS_IN_ISOLATION = 21 + 4;
+// const AVG_DAYS_IN_ISOLATION = 40;
 
 const getField = (report, fieldPath) => ['fields', ...(fieldPath || '').split('.')]
   .reduce((prev, fieldName) => {
@@ -22,12 +22,14 @@ const getField = (report, fieldPath) => ['fields', ...(fieldPath || '').split('.
     return prev[fieldName];
   }, report);
 
+/***
 function getFormArraySubmittedInWindow(allReports, formArray, start, end) {
   return allReports.filter(function (report) {
     return formArray.includes(report.form) &&
       report.reported_date >= start && report.reported_date <= end;
   });
 }
+***/
 
 function getNewestReport(allReports, forms) {
   let result;
@@ -57,6 +59,7 @@ function getNextCovidFollowupDate(allReports, report) {
   return moment(nextVisit);
 }
 
+/***
 function getDangerSignCodes(report) {
   const dangerSignCodes = [];
   if (getField(report, 'symptom_existence') === 'yes') {
@@ -71,6 +74,7 @@ function getDangerSignCodes(report) {
   }
   return dangerSignCodes;
 }
+***/
 
 /***
 function getLatestDangerSignsForPregnancy(allReports, pregnancy) {
@@ -179,10 +183,6 @@ function isAlive(thisContact) {
 }
 
 function isHomeBasedCareForm(report) {
-  return report && hbcForms.includes(report.form);
-}
-
-function isHomeBasedCareFollowUpForm(report) {
   return report && hbcForms.includes(report.form);
 }
 
@@ -304,18 +304,11 @@ function knowsHIVStatusInPast3Months(allReports) {
 
 module.exports = {
   today,
-  isHighRiskPatient,
   getNewestReport,
   isAlive,
   isActiveCovid,
-  countCovidFollowups,
-  getAllRiskFactors,
-  getAllRiskFactorExtra,
   getNextCovidFollowupDate,
-  isReadyForDischarge,
-  getMostRecentEDD,
   getDischargeDate,
-  getSymptonsOnSetDate,
   dangerSigns,
   getField
 };
