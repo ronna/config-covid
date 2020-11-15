@@ -38,45 +38,6 @@ module.exports = [
     }],
   },
 
-
-    /****
-   Use case :  HBC Followup
-   1. Followup after isolation
-   ****/
-
-  // 1. Positive Home Based Care follow-up
-  {
-    name: 'hbc-followup-followup',
-    icon: 'icon-healthcare',
-    title: 'task.hbc_followup.title',
-    appliesTo: 'contacts',
-    appliesToType: ['person'],
-    appliesIf: function (c) {
-
-      this.mostRecentHbc = Utils.getMostRecentReport(c.reports, 'form_ao');
-      return this.mostRecentHbc && Utils.getField(this.mostRecentHbc, 'case_isolation') === 'yes';
-    },
-    resolvedIf: function (c, r, event) {
-      const startTime = Utils.addDate(event.dueDate(c, r), -event.start);
-      const endTime = Utils.addDate(event.dueDate(c, r), event.end + 1);
-
-      const reportsAfterHbc = c.reports.filter(report => report.reported_date >= this.mostRecentHbc.reported_date);
-      return Utils.isFormSubmittedInWindow(reportsAfterHbc, 'hbc_followup', startTime, endTime);
-    },
-    events: [{
-      start: 1,
-      end: 24,
-      dueDate: function() {
-        return Utils.addDate(new Date(this.mostRecentRdt.reported_date), 1);
-      },
-    }],
-    actions: [{
-      type: 'contacts',
-      form: 'hbc_followup',
-      label: 'task.hbc_followup.title',
-    }],
-  },
-
   /****
    Use case :  C-EBS
    1. Supervisor Verification after signal 8
@@ -91,7 +52,7 @@ module.exports = [
     appliesTo: 'contacts',
     appliesToType: undefined,
     appliesIf: function (c) {
-      const isCha = user.parent && (user.parent.type === 'health_center' || user.parent.type === 'district_hospital' );
+      const isCha = user.parent && user.parent.type === 'health_center';
       this.mostRecent8 = Utils.getMostRecentReport(c.reports, '8');
       return isCha && this.mostRecent8 ;
     },
@@ -176,9 +137,9 @@ module.exports = [
     icon: 'icon-healthcare',
     title: 'task.trace_follow_up.title',
     appliesTo: 'contacts',
-    appliesToType: [' '],
+    appliesToType: ['person'],
     appliesIf: function (contact) {
-      return  !!contact.contact.covid_patient && (user.role === 'covid_tracer' || user.role === 'chw_supervisor' ) ;
+      return  !!contact.contact.covid_patient && user.role === 'tracer' ;
     },
     resolvedIf: function (contact) {
       this.mostRecentTraceFollowUp = Utils.getMostRecentReport(contact.reports, 'covid_trace_follow_up');
